@@ -1,0 +1,30 @@
+#title {
+    text-align: center;
+}
+
+#color-palette {
+    display:flex;
+    justify-content: center;
+    
+}
+.color {
+    border: solid 1px black;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    
+}
+
+.color:first-of-type {
+    background-color: black;
+}
+
+.color:nth-of-type(2){
+    background-color: brown;
+}
+.color:nth-of-type(3){
+    background-color: rgb(238, 204, 12);
+}
+.color:nth-of-type(4){
+    background-color: rgb(238, 114, 12);
+}
