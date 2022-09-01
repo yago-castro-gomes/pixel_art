@@ -42,15 +42,18 @@ btnColor.addEventListener('click', () => {
 // function liberaCor () {
 //   JSON.parse(localStorage.getItem('colorPalette'));
 // };
-paleta[0].classList.remove('color');
-paleta[0].classList.add('selected');
+
 
 function trocaClass(e) {
+    for (conteudo in paleta) {
+      if (paleta[conteudo].classList == 'selected') {
+        paleta[conteudo].classList = 'color'
+      }
+    }
         e.target.classList.remove('color');
         e.target.classList.add('selected');
 
-
- };
+}
 
 paleta[0].addEventListener('click', trocaClass);
 paleta[1].addEventListener('click', trocaClass);
