@@ -1,3 +1,5 @@
+
+
 const paleta = document.querySelectorAll('.color');
 const btnColor = document.getElementById('button-random-color');
 const pixels = document.getElementsByClassName('.pixel');
@@ -5,13 +7,20 @@ const pixels = document.getElementsByClassName('.pixel');
 // let storage = localStorage;
 // let salvaCor = JSON.parse(storage.getItem('colorPallet'));
 //  paleta[1].style.backgroundColor = salvaCor;
-//  function corInicial () {
-//   if (paleta[0].className === 'color') {
-//     paleta[0].classList.add('selected');
-//     paleta[0].classList.remove('color');
-//   }
-// }
-// corInicial();
+
+const corUm = paleta[0];
+const corDois = paleta[1];
+const corTres = paleta[2];
+const corQua = paleta[3];
+
+function classInicia () {
+  corUm.classList.add('selected');
+
+  return classInicia;
+};
+
+window.onload = classInicia();
+
 
 function corAleatória() {
   const r = parseInt(Math.random() * 255, 0);
@@ -22,9 +31,9 @@ function corAleatória() {
 }
 
 function backgroundPalets() {
-  paleta[1].style.backgroundColor = corAleatória();
-  paleta[2].style.backgroundColor = corAleatória();
-  paleta[3].style.backgroundColor = corAleatória();
+  corDois.style.backgroundColor = corAleatória();
+  corTres.style.backgroundColor = corAleatória();
+  corQua.style.backgroundColor = corAleatória();
 
   return backgroundPalets;
 }
@@ -43,19 +52,19 @@ btnColor.addEventListener('click', () => {
 //   JSON.parse(localStorage.getItem('colorPalette'));
 // };
 
-
 function trocaClass(e) {
-    for (conteudo in paleta) {
-      if (paleta[conteudo].classList == 'selected') {
-        paleta[conteudo].classList = 'color'
+    for (let i = 0; i < paleta.length; i += 1) {
+      if (paleta[i].className === 'color selected') {
+        paleta[i].className = 'color';
       }
     }
-        e.target.classList.remove('color');
         e.target.classList.add('selected');
 
 }
 
-paleta[0].addEventListener('click', trocaClass);
-paleta[1].addEventListener('click', trocaClass);
-paleta[2].addEventListener('click', trocaClass);
-paleta[3].addEventListener('click', trocaClass);
+corUm.addEventListener('click', trocaClass);
+corDois.addEventListener('click', trocaClass);
+corTres.addEventListener('click', trocaClass);
+corQua.addEventListener('click', trocaClass);
+
+
