@@ -2,10 +2,12 @@
 
 *{  
     font-family: 'serious1', sans-serif;
+    background-color: rgb(99, 95, 92);
 }
 
 #title {
     text-align: center;
+    color: white;
 }
 
 #color-palette {
@@ -55,15 +57,15 @@
 }
 
 #button-random-color {
+    display: inline-block;
     text-align: center;
-    background-color: black;
-    color: rgb(255, 255, 255);
+    background-color: white;
+    color: rgb(99, 95, 92);
     font-weight: 550;
     box-shadow: 500px;
     width: 95px;
     height: 50px;
     border-radius: 10px;
-    margin-left: 70%;
 }
 
 #pixel-board {
@@ -78,4 +80,32 @@
     height: 40px;
     border: solid black 1px;
     
+}
+
+#alteraQuadro {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    height: 30px;
+}
+
+#board-size{
+    background-color: white;
+}
+
+#generate-board {
+    background-color: white;
+    color: rgb(99, 95, 92);
+}
+
+#clear-board {
+    background-color: white;
+    color: rgb(99, 95, 92);
+    width: 80px;
+    height: 30px;
+}
+
+#botons {
+    display: inline-block;
+    margin-left: 60%;
 }
