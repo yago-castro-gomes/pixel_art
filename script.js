@@ -40,7 +40,7 @@ function backgroundPalets() {
 
   return backgroundPalets;
 }
-
+// Salva cor no LocalStorage
 function salvaCor() {
   const array = [corDois.style.backgroundColor,
     corTres.style.backgroundColor,
@@ -48,13 +48,13 @@ function salvaCor() {
   localStorage.setItem('colorPalette', JSON.stringify(array));
 }
 
+// Clique do botão para gerar coles aleatórias e já salvar no LocalStorage
 btnColor.addEventListener('click', () => {
   backgroundPalets();
   salvaCor();
-
-//   storage.setItem('colorPallet', JSON.stringify(paleta[1].style.backgroundColor));
 });
 
+// Função para pegar a cor salva assim que carregar a página
 window.onload = function liberaCor() {
   if (localStorage.getItem('colorPalette')) {
     const retornaCor = JSON.parse(localStorage.getItem('colorPalette'));
@@ -62,8 +62,15 @@ window.onload = function liberaCor() {
       paleta[i].style.backgroundColor = retornaCor[i - 1];
     }
   }
+  if (localStorage.getItem('pixelBoard')) {
+    const retornaPixel = JSON.parse(localStorage.getItem('pixelBoard'));
+    for (let i = 0; i < retornaPixel.length; i += 1) {
+      pixels[i].style.backgroundColor = retornaPixel[i];
+    }
+  }
 };
 
+// Função para trocar as classes deixando uma de cada vez com o 'selected'
 function trocaClass(e) {
   for (let i = 0; i < paleta.length; i += 1) {
     if (paleta[i].className === 'color selected') {
@@ -72,12 +79,13 @@ function trocaClass(e) {
   }
   e.target.classList.add('selected');
 }
-
+// Troca a classe quando clicamos na cor
 corUm.addEventListener('click', trocaClass);
 corDois.addEventListener('click', trocaClass);
 corTres.addEventListener('click', trocaClass);
 corQua.addEventListener('click', trocaClass);
 
+// Preenche os pixels com a cor clicada
 function preenche(e) {
   if (black.className === 'color selected') {
     e.target.style.backgroundColor = black.style.backgroundColor;
@@ -91,20 +99,36 @@ function preenche(e) {
   if (orange.className === 'color selected') {
     e.target.style.backgroundColor = orange.style.backgroundColor;
   }
+  salvaPixels()
 }
 
+// Adiciona cor a cada pixel clicado
 for (let i = 0; i < pixels.length; i += 1) {
   pixels[i].addEventListener('click', preenche);
 }
 
+// Colore todos os pixels de branco
 function limpaTudo() {
   for (let i = 0; i < pixels.length; i += 1) {
     pixels[i].style.backgroundColor = 'white';
   }
+  salvaPixels()
 }
-
+// Botão para limpar/deixar branco os pixels
 btnLimpa.addEventListener('click', limpaTudo);
 
+
+
+function salvaPixels() {
+  const pixelados = [];
+  for (let i = 0; i < pixels.length; i += 1) {
+    pixelados.push(pixels[i].style.backgroundColor);
+  }
+  localStorage.setItem('pixelBoard', JSON.stringify(pixelados));
+}
+
+
+// Função para aumentar a tabela.
 function aumentaTabela() {
   const div = document.createElement('div');
   boardPix.appendChild(div);
@@ -112,6 +136,9 @@ function aumentaTabela() {
   divDaDiv.classList.add('pixel');
   div.appendChild(divDaDiv);
 }
+
+
+
 
 
 
