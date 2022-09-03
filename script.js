@@ -1,4 +1,4 @@
-//Elementos do DOM
+//  Elementos do DOM
 const paleta = document.querySelectorAll('.color');
 const btnColor = document.getElementById('button-random-color');
 const pixels = document.querySelectorAll('.pixel');
@@ -85,40 +85,7 @@ corDois.addEventListener('click', trocaClass);
 corTres.addEventListener('click', trocaClass);
 corQua.addEventListener('click', trocaClass);
 
-// Preenche os pixels com a cor clicada
-function preenche(e) {
-  if (black.className === 'color selected') {
-    e.target.style.backgroundColor = black.style.backgroundColor;
-  }
-  if (brown.className === 'color selected') {
-    e.target.style.backgroundColor = brown.style.backgroundColor;
-  }
-  if (yellow.className === 'color selected') {
-    e.target.style.backgroundColor = yellow.style.backgroundColor;
-  }
-  if (orange.className === 'color selected') {
-    e.target.style.backgroundColor = orange.style.backgroundColor;
-  }
-  salvaPixels()
-}
-
-// Adiciona cor a cada pixel clicado
-for (let i = 0; i < pixels.length; i += 1) {
-  pixels[i].addEventListener('click', preenche);
-}
-
-// Colore todos os pixels de branco
-function limpaTudo() {
-  for (let i = 0; i < pixels.length; i += 1) {
-    pixels[i].style.backgroundColor = 'white';
-  }
-  salvaPixels()
-}
-// Botão para limpar/deixar branco os pixels
-btnLimpa.addEventListener('click', limpaTudo);
-
-
-
+// função para salvar os pixel
 function salvaPixels() {
   const pixelados = [];
   for (let i = 0; i < pixels.length; i += 1) {
@@ -127,22 +94,76 @@ function salvaPixels() {
   localStorage.setItem('pixelBoard', JSON.stringify(pixelados));
 }
 
+// Colore todos os pixels de branco
+function limpaTudo() {
+  for (let i = 0; i < pixels.length; i += 1) {
+    pixels[i].style.backgroundColor = 'white';
+  }
+  salvaPixels();
+}
+// Botão para limpar/deixar branco os pixels
+btnLimpa.addEventListener('click', limpaTudo);
 
+function apagaTabela() {
+  boardPix.innerHTML = '';
+}
+let div = [];
+let divDaDiv = [];
 // Função para aumentar a tabela.
-function aumentaTabela() {
-  const div = document.createElement('div');
-  boardPix.appendChild(div);
-  const divDaDiv = document.createElement('div');
-  divDaDiv.classList.add('pixel');
-  div.appendChild(divDaDiv);
+function aumentaTabela(valor) {
+  apagaTabela();
+  verficaBoard();
+  valor = inputTable.value;
+  for (let i = 1; i <= valor; i += 1) {
+    div = document.createElement('div');
+    boardPix.appendChild(div);
+    for (let i2 = 1; i2 <= valor; i2 += 1) {
+      divDaDiv = document.createElement('div');
+      divDaDiv.classList.add('pixel');
+      div.appendChild(divDaDiv);
+  }
+  }
+}
+
+btnTable.addEventListener('click', aumentaTabela);
+
+// Preenche os pixels com a cor clicada
+function preenche(e) {
+  for (let i = 0; i < paleta.length; i += 1) {
+    if (paleta[i].className === 'color selected') {
+      e.target.style.backgroundColor = paleta[i].style.backgroundColor;
+    }
+    salvaPixels();
+  }
+}
+
+// Adiciona cor a cada pixel clicado
+function pintaPixel() {
+  for (let i = 0; i < pixels.length; i += 1) {
+    if (pixels[i].className === 'pixel') {
+      pixels[i].addEventListener('click', preenche);
+    }
+  }
 }
 
 
+function verficaBoard() {
+  if (inputTable.value === '') {
+    alert('Board Inválido!');
+  }
+  if (inputTable.value < 5) {
+    inputTable.value = 5;
+  }
+  if (inputTable.value > 50) {
+    inputTable.value = 50;
+  }
+}
 
-
-
-
-// btnTable.addEventListener('click', (e) => {
-//  aumentaTabela(multiplica);
-// })
-
+// function salvaBoard(elemento) {
+//   const pixelados = [];
+//   for (let i = 0; i < elemento.length; i += 1) {
+//     pixelados.push(elemento[i]);
+//   }
+//   localStorage.setItem('boardSize', JSON.stringify(pixelados));
+// }
+pintaPixel();
