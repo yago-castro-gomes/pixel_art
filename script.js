@@ -5,19 +5,22 @@ const pixels = document.querySelectorAll('.pixel');
 const boardPix = document.getElementById('pixel-board');
 const btnLimpa = document.getElementById('clear-board');
 const black = document.getElementById('black');
-const brown = document.getElementById('brown');
-const yellow = document.getElementById('yellow');
-const orange = document.getElementById('orange');
+// const brown = document.getElementById('brown');
+// const yellow = document.getElementById('yellow');
+// const orange = document.getElementById('orange');
 const btnTable = document.getElementById('generate-board');
 const inputTable = document.getElementById('board-size');
 
-//  paleta[1].style.backgroundColor = salvaCor;
+let div = [];
+let divDaDiv = [];
 
 //  Cores da paleta
 const corUm = paleta[0];
 const corDois = paleta[1];
 const corTres = paleta[2];
 const corQua = paleta[3];
+
+console.log(corQua);
 
 // Define cor inicial pro background
 black.style.backgroundColor = 'black';
@@ -28,7 +31,7 @@ function corAleatória() {
   const g = parseInt(Math.random() * 255, 0);
   const b = parseInt(Math.random() * 255, 0);
 
-  const cores = `rgb(${r}, ${g}, ${b})`
+  const cores = `rgb(${r}, ${g}, ${b})`;
   return cores;
 }
 
@@ -56,19 +59,31 @@ btnColor.addEventListener('click', () => {
 
 // Função para pegar a cor salva assim que carregar a página
 window.onload = function liberaCor() {
+  retornapaleta();
+  retornaPintura();
+  voltaBoard();
+};
+
+// Função de retornar cor da palheta
+
+function retornapaleta() {
   if (localStorage.getItem('colorPalette')) {
     const retornaCor = JSON.parse(localStorage.getItem('colorPalette'));
     for (let i = 0; i <= retornaCor.length; i += 1) {
       paleta[i].style.backgroundColor = retornaCor[i - 1];
     }
   }
+}
+
+//  retornar pixels que foram pintados
+function retornaPintura() {
   if (localStorage.getItem('pixelBoard')) {
     const retornaPixel = JSON.parse(localStorage.getItem('pixelBoard'));
-    for (let i = 0; i < retornaPixel.length; i += 1) {
-      pixels[i].style.backgroundColor = retornaPixel[i];
+    for (let i2 = 0; i2 < retornaPixel.length; i2 += 1) {
+      pixels[i2].style.backgroundColor = retornaPixel[i2];
     }
   }
-};
+}
 
 // Função para trocar as classes deixando uma de cada vez com o 'selected'
 function trocaClass(e) {
@@ -94,21 +109,11 @@ function salvaPixels() {
   localStorage.setItem('pixelBoard', JSON.stringify(pixelados));
 }
 
-// Colore todos os pixels de branco
-function limpaTudo() {
-  for (let i = 0; i < pixels.length; i += 1) {
-    pixels[i].style.backgroundColor = 'white';
-  }
-  salvaPixels();
-}
-// Botão para limpar/deixar branco os pixels
-btnLimpa.addEventListener('click', limpaTudo);
-
+// apaga a tabela anterior
 function apagaTabela() {
   boardPix.innerHTML = '';
 }
-let div = [];
-let divDaDiv = [];
+
 // Função para aumentar a tabela.
 function aumentaTabela(valor) {
   apagaTabela();
@@ -121,11 +126,34 @@ function aumentaTabela(valor) {
       divDaDiv = document.createElement('div');
       divDaDiv.classList.add('pixel');
       div.appendChild(divDaDiv);
+      divDaDiv.addEventListener('click', preenche);
+      divDaDiv.addEventListener('dblclick', limpaUm);
+    }
   }
-  }
+  salvaBoard();
 }
 
 btnTable.addEventListener('click', aumentaTabela);
+
+// Colore todos os pixels de branco
+function limpaTudo() {
+  for (let i = 0; i < pixels.length; i += 1) {
+    pixels[i].style.backgroundColor = 'white';
+  }
+  const divs = document.querySelectorAll('.pixel');
+  for (let i2 = 0; i2 < divs.length; i2 += 1) {
+    divs[i2].style.backgroundColor = 'white';
+  }
+  salvaPixels();
+}
+
+function limpaUm(e) {
+  e.target.style.backgroundColor = 'white';
+  salvaPixels();
+}
+
+// Botão para limpar/deixar branco os pixels
+btnLimpa.addEventListener('click', limpaTudo);
 
 // Preenche os pixels com a cor clicada
 function preenche(e) {
@@ -142,10 +170,10 @@ function pintaPixel() {
   for (let i = 0; i < pixels.length; i += 1) {
     if (pixels[i].className === 'pixel') {
       pixels[i].addEventListener('click', preenche);
+      pixels[i].addEventListener('dblclick', limpaUm);
     }
   }
 }
-
 
 function verficaBoard() {
   if (inputTable.value === '') {
@@ -159,11 +187,22 @@ function verficaBoard() {
   }
 }
 
-// function salvaBoard(elemento) {
-//   const pixelados = [];
-//   for (let i = 0; i < elemento.length; i += 1) {
-//     pixelados.push(elemento[i]);
-//   }
-//   localStorage.setItem('boardSize', JSON.stringify(pixelados));
-// }
+function salvaBoard() {
+  const pixelados = [];
+  const divss = document.querySelectorAll('.pixel');
+  for (let i = 0; i < divss.length; i += 1) {
+    pixelados.push(divss[i].outerHTML);
+  }
+  localStorage.setItem('boardSize', JSON.stringify(pixelados));
+}
+
+function voltaBoard() {
+  if (localStorage.getItem('boardSize')) {
+    const retornaBoard = JSON.parse(localStorage.getItem('boardSize'));
+    for (let i = 0; i < retornaBoard.length; i += 1) {
+      //  boardPix.innerHTML += retornaBoard[i];
+    }
+  }
+}
+
 pintaPixel();

@@ -2,45 +2,46 @@
 
 *{  
     font-family: 'serious1', sans-serif;
-    background-color: rgb(99, 95, 92);
+}
+
+body {
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-color: rgb(83, 72, 72);
+    
 }
 
 #title {
     text-align: center;
-    color: white;
+    color: rgb(228, 243, 12);
+}
+
+#paleta-container {
+    display: flex;
+    justify-content: center;
 }
 
 #color-palette {
-    display:flex;
+    display:inline-flex;
+    border: solid black 1px;
+    background-color:antiquewhite;
+    width: 210px;
+    height: 50px;
+    padding: 20px;
     justify-content: center;
+    border-radius: 20px;
     
 }
-/* #color-palette :nth-child(1){
-    border: solid 1px black;
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-}
-#color-palette :nth-child(1){
-    background-color: black;
-}
-#color-palette :nth-child(2){
-    background-color: brown;
-}
-#color-palette :nth-child(3){
-    background-color: rgb(238, 204, 12);
-}
-#color-palette :nth-child(4){
-    background-color: rgb(238, 114, 12);
-} */
 
 .color{
     border: solid 1px black;
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    
+    display: flex;
+    width: 50px;
+    height: 50px;
+    transition: ease 0.2s;
 }
+
+
 
 #black {
     background-color: black;
@@ -59,8 +60,8 @@
 #button-random-color {
     display: inline-block;
     text-align: center;
-    background-color: white;
-    color: rgb(99, 95, 92);
+    background-color: rgb(255, 252, 252);
+    color: rgb(82, 78, 76);
     font-weight: 550;
     box-shadow: 500px;
     width: 95px;
@@ -87,6 +88,7 @@
     justify-content: center;
     padding-top: 20px;
     height: 30px;
+    padding-bottom: 20px;
 }
 
 #board-size{
@@ -100,12 +102,14 @@
 
 #clear-board {
     background-color: white;
-    color: rgb(99, 95, 92);
+    color: rgb(82, 78, 76);;
     width: 80px;
     height: 30px;
 }
 
 #botons {
-    display: inline-block;
-    margin-left: 60%;
+    display: block;
+    margin-left: 110vh;
+    position: absolute;
+    bottom: 86%;
 }
